@@ -41,9 +41,33 @@
         .app-header {
             display: flex;
             gap: 24px;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
+        /******* Responsive Design Stuff *******/
+
+        @media (max-width: 768px) {
+            .app-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .store-links {
+                justify-content: center;
+            }
+
+            .app-showcase {
+                padding: 16px;
+            }
+
+            .screenshots img, .screenshots video {
+                box-shadow: none;
+            }
+        }
+
+        /***************************************/
         .app-icon {
             width: 128px;
             height: 128px;
@@ -90,9 +114,12 @@
             scroll-snap-type: x proximity;
         }
 
-        .screenshots img , .screenshots video{
-            width: auto;
-            height: 300px;
+        .screenshots img,
+        .screenshots video {
+            /* width: auto;
+            height: 300px; */
+            width: min(75vw, 900px);
+            height: auto;
             border-radius: 12px;
             flex-shrink: 0;
 
@@ -109,6 +136,10 @@
             overflow-x: auto;
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, .35) transparent;
+
+            /** For phones? **/
+            scroll-snap-type: x mandatory;
+
         }
 
         .screenshots::-webkit-scrollbar {
@@ -149,7 +180,8 @@
                             height="100px" alt="GitHub">
                     </a>
 
-                    <a href="https://flathub.org/en/apps/io.github.hamza_algohary.Coulomb" target="_blank" rel="noopener noreferrer">
+                    <a href="https://flathub.org/en/apps/io.github.hamza_algohary.Coulomb" target="_blank"
+                        rel="noopener noreferrer">
                         <img src="https://flathub.org/api/badge?locale=en" alt="Flathub">
                     </a>
                 </div>
@@ -265,7 +297,8 @@
                 </p>
 
                 <div class="store-links">
-                    <a href="https://github.com/hamza-algohary/LinuxImageViewer" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/hamza-algohary/LinuxImageViewer" target="_blank"
+                        rel="noopener noreferrer">
                         <img src="assets/get-it-on-github.png" height="100px" alt="GitHub">
                     </a>
                 </div>
@@ -282,7 +315,8 @@
 
     <section class="app-showcase">
         <div class="app-header">
-            <img class="app-icon" src="assets/explosion-icon-enhanced.png" style="filter: drop-shadow(1px 0 30px #a15dde);" alt="App Icon"> <!--#bb7beb-->
+            <img class="app-icon" src="assets/explosion-icon-enhanced.png"
+                style="filter: drop-shadow(1px 0 30px #a15dde);" alt="App Icon"> <!--#bb7beb-->
             <div class="app-info">
                 <h2>Exploding Fire Particle Simulation</h2>
 
@@ -291,7 +325,8 @@
                 </p>
 
                 <div class="store-links">
-                    <a href="https://github.com/hamza-algohary/Exploding-Particle-Simulation" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/hamza-algohary/Exploding-Particle-Simulation" target="_blank"
+                        rel="noopener noreferrer">
                         <img src="assets/get-it-on-github.png" height="100px" alt="GitHub">
                     </a>
                 </div>
