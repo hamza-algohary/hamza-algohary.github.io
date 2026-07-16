@@ -1,0 +1,200 @@
+@import url("media-gallery.css");
+
+.hbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.vbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+/* :root {
+            --body-bg-color: #111;
+            --body-fg-color: white;
+            --card-bg-color: #1d1d1d;
+            --card-fg-color-secondary: #cccccc;
+            --screenshot-shadow-color: rgba(0, 0, 0, 0.7);
+        } */
+
+:root {
+    --body-bg-color: #251f32;
+    --body-fg-color: white;
+    --card-bg-color: #3e3947;
+    --card-fg-color-secondary: #cccccc;
+    --screenshot-shadow-color: rgba(0, 0, 0, 0.7);
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: var(--body-bg-color);
+    color: var(--body-fg-color);
+    padding: 30px;
+}
+
+.app-showcase {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 0px;
+    background: var(--card-bg-color);
+    border-radius: 16px;
+}
+
+.app-header {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/******* Responsive Design Stuff *******/
+
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+    }
+    .app-header h2 , .app-header .summary {
+        text-align: center;
+    }
+    .app-header .description {
+        text-align: start;
+    }
+    .store-links {
+        justify-content: center;
+    }
+
+    .center-when-small {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .app-showcase {
+        padding: 16px;
+    }
+
+    .screenshots img,
+    .screenshots video {
+        box-shadow: none;
+        width: min(75vw, 900px);
+        height: auto;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .screenshots img,
+    .screenshots video {
+        width: auto;
+        height: 300px;
+    }
+
+    .app-icon {
+        align-self: flex-start;
+    }
+}
+
+/***************************************/
+.app-icon {
+    width: 128px;
+    height: 128px;
+    border-radius: 24px;
+    flex-shrink: 0;
+}
+
+.app-info {
+    flex: 1;
+}
+
+.app-info h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.description {
+    margin: 16px 0;
+    line-height: 1.6;
+    /* color: var(--card-fg-color-secondary); */
+}
+
+.store-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.store-links img {
+    height: 72px;
+    display: block;
+}
+
+
+.screenshots {
+    margin-top: 32px;
+
+    display: flex;
+    gap: 32px;
+
+    overflow-x: auto;
+    padding-bottom: 25px;
+    padding-right: 50px;
+    margin-bottom: 32px;
+    /* scroll-snap-type: x proximity; */
+}
+
+.screenshots img,
+.screenshots video {
+    /* width: auto;
+    height: 300px; */
+    /* width: min(75vw, 900px);
+    height: auto; */
+    border-radius: 12px;
+    flex-shrink: 0;
+
+    scroll-snap-align: start;
+
+    box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.5);
+
+    scroll-snap-align: center;
+
+    /* box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); */
+    /* filter: drop-shadow(0px 0px 10px var(--screenshot-shadow-color)) drop-shadow(0px 0px 5px var(--screenshot-shadow-color)); */
+
+}
+
+/************ Scrollbars CSS ************/
+.screenshots {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, .35) transparent;
+
+    scroll-snap-type: x mandatory;
+
+}
+
+.screenshots::-webkit-scrollbar {
+    height: 8px;
+}
+
+.screenshots::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.screenshots::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .35);
+    border-radius: 999px;
+}
+
+.screenshots::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, .55);
+}
