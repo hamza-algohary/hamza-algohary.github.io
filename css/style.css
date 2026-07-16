@@ -87,7 +87,7 @@ body {
     .screenshots video {
         box-shadow: none;
         width: 75vw;/*min(75vw, 900px);*/
-        height: fit-content;
+        height: auto;
     }
 }
 
