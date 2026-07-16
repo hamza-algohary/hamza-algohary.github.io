@@ -86,8 +86,8 @@ body {
     .screenshots img,
     .screenshots video {
         box-shadow: none;
-        width: min(75vw, 900px);
-        height: auto;
+        width: 75vw;/*min(75vw, 900px);*/
+        height: fit-content;
     }
 }
 
