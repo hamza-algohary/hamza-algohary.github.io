@@ -322,7 +322,6 @@ class CLIAppsSection extends HTMLElement {
                     "assets/mandelbrot-samples/7.bmp",
                     "assets/mandelbrot-samples/8.bmp",
                     "assets/mandelbrot-samples/9.bmp",
-                    "assets/mandelbrot-samples/10.bmp",
                     "assets/mandelbrot-samples/11.bmp",
                     "assets/mandelbrot-samples/12.bmp",
                     "assets/mandelbrot-samples/13.bmp",
