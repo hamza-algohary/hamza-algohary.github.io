@@ -93,12 +93,34 @@ class AppIcon extends HTMLElement {
     }
 }
 
+function badgeLink(link , img) {
+    return `
+    <a href="${link}" target="_blank" rel="noopener noreferrer">
+        <img src="${img}" height="100px" alt="GitHub">
+    </a>`
+}
+
+function githubLink(repo) {
+    return `
+    <a href="${repo}" target="_blank" rel="noopener noreferrer">
+        <img src="assets/get-it-on-github.png" height="100px" alt="GitHub">
+    </a>`
+}
+
+function flathubLink(link) {
+    return `
+    <a href="${link}" target="_blank" rel="noopener noreferrer">
+        <img src="https://flathub.org/api/badge?locale=en" alt="Flathub">
+    </a>
+    `
+}
+
 function guiAppSection(appName, icon, iconColor, summary , description, githubLink, flathubLink, screenshots = [], videos = []) {
     return `
-        <section class="app-showcase">
+        <section class="app-showcase" style="--icon-color:${iconColor};">
             <div class="app-header">
                 ${icon != "" ?
-            `<img class="app-icon" src="${icon}" style="filter: drop-shadow(1px 0 30px ${iconColor});" alt="App Icon">` : ""
+            `<img class="app-icon" src="${icon}" style="filter: drop-shadow(1px 0 30px var(--icon-color));" alt="App Icon">` : ""
         }
                 <div class="app-info">
                     <h2>${appName}</h2>
@@ -133,19 +155,10 @@ function guiAppSection(appName, icon, iconColor, summary , description, githubLi
     `
 }
 
-function mp4Video(src) {
+function video(src , type) {
     return `
-    <video controls autoplay muted>
-        <source src="${src}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-`
-}
-
-function webmVideo(src) {
-    return `
-    <video controls autoplay muted>
-        <source src="${src}" type="video/webm">
+    <video controls autoplay muted loop>
+        <source src="${src}" type="video/${type}">
         Your browser does not support the video tag.
     </video>
 `
@@ -165,6 +178,17 @@ function olist(...items) {
     ).join("\n") + "</ol>"
 }
 
+function tag(text) {
+    return `<span class="tag">${text}</span>`
+}
+
+function tags(...texts) {
+    return `<div class="hbox wrap">` + texts.map((text) => tag(text)).join("\n") + `</div>`
+}
+
+function creationDate(date) {
+    return `<p class="creation-date">${date}</p>`
+}
 
 class GUIApps extends HTMLElement {
     connectedCallback() {
@@ -174,7 +198,8 @@ class GUIApps extends HTMLElement {
                 "assets/coulomb-icon.svg",
                 "#e5a50a",
                 "Coulomb is a simple and elegant electronic circuit simulator for Linux desktop.",
-                "",
+                tags("Java","Kotlin","Gtk4","Libadwaita","ejml","Electronic Circuit Theory","Linear Algebra") + 
+                creationDate("Created in 2022"),
                 "https://github.com/hamza-algohary/Coulomb",
                 "https://flathub.org/en/apps/io.github.hamza_algohary.Coulomb",
                 [
@@ -187,7 +212,7 @@ class GUIApps extends HTMLElement {
                     "assets/coulomb-screenshots/zener-dark.png",
                 ],
                 [
-                    webmVideo("assets/videos/coulomb-edited.webm")
+                    video("assets/videos/coulomb-edited.webm","webm")
                 ]
             ) +
             guiAppSection(
@@ -195,7 +220,8 @@ class GUIApps extends HTMLElement {
                 "assets/tvtime.svg",
                 "#4f4f4f",
                 "A TV home screen for Linux. Launch apps and switch windows through remote controller.",
-                "",
+                tags("Kotlin","Gtk4","Libadwaita","Wayland","Linux Desktop")+ 
+                creationDate("Created in 2026"),
                 "https://github.com/hamza-algohary/tvland",
                 "",
                 [
@@ -212,7 +238,9 @@ class GUIApps extends HTMLElement {
                 ulist(
                     "On-screen-keyboard for Wayland compositors, with support for gamepad controllers and joysticks.",
                     "Translation layer to map gamepad inputs to keyboard and mouse events for system-wide interaction."
-                ),
+                ) +
+                tags("Kotlin","Gtk4","Wayland","LayerShell","Input Emulation")+ 
+                creationDate("Created in 2026") ,
                 "https://github.com/hamza-algohary/tvland",
                 "",
                 [
@@ -225,7 +253,8 @@ class GUIApps extends HTMLElement {
                 "assets/queue.svg",
                 "#454564",
                 "An app to apply and experiment with concepts of queueing theory.",
-                "",
+                tags("Kotlin","Gtk4","Simulation") + 
+                creationDate("Created in 2025"),
                 "https://github.com/hamza-algohary/queuesim",
                 "",
                 [
@@ -238,7 +267,8 @@ class GUIApps extends HTMLElement {
                 "assets/iamge-viewer-icon.svg",
                 "#23b1ff",
                 "A simple image viewer for Linux.",
-                "",
+                tags("C++","Gtk3","Linux","CSS") + 
+                creationDate("Created in 2020"),
                 "https://github.com/hamza-algohary/LinuxImageViewer",
                 "",
                 [
@@ -253,7 +283,8 @@ class GUIApps extends HTMLElement {
                 "assets/explosion-icon-enhanced.png",
                 "#a15dde",
                 "An infinite explosion simulation,that is very satisfying to look at.",
-                "",
+                tags("C++","SDL2") + 
+                creationDate("Created in 2019"),
                 "https://github.com/hamza-algohary/Exploding-Particle-Simulation",
                 "",
                 [
@@ -271,7 +302,7 @@ class GUIApps extends HTMLElement {
                     "assets/explosion-screenshots/12.png"
                 ],
                 [
-                    webmVideo("assets/videos/exploding-fire-particle-simulation.webm")
+                    video("assets/videos/exploding-fire-particle-simulation.webm" , "webm")
                 ]
             ) 
     }
@@ -291,7 +322,9 @@ class CLIAppsSection extends HTMLElement {
                     "URL Handler for many sites (plugins based, with some plugins builtin) to allow proper display of channels and playlists, and play video and audio streams.",
                     "Unified schema for all the above, providing types like Stream, Playlist and Channel allowing frontend to transparently support new sites just by adding plugins. So frontend need not support individual sites.",
                     "Locally indexed lists, supporting fuzzy and semantic search, to aid frontends implement features such as IPTV, and Whitelists."
-                ),
+                ) +                 
+                tags("Kotlin","SQLite","Apache Lucene") + 
+                creationDate("Created in 2025") ,
                 "https://github.com/hamza-algohary/tuber",
                 ""
             ) +
@@ -300,7 +333,8 @@ class CLIAppsSection extends HTMLElement {
                 "assets/flatpak.svg",
                 "#e4ba75",
                 "A CLI for flatpak with machine readable output, to be used instead of libflatpak for languages that don't have a libflatpak binding.",
-                "",
+                tags("Rust","libflatpak") + 
+                creationDate("Created in 2026"),
                 "https://github.com/hamza-algohary/libflatpakcli",
                 ""
             ) +
@@ -309,7 +343,8 @@ class CLIAppsSection extends HTMLElement {
                 "assets/mandelbrot.png",
                 "#012883",
                 "A CLI program to generate images of Mandelrtbot fractals.",
-                "",
+                tags("C++") + 
+                creationDate("Created in 2020"),
                 "https://github.com/hamza-algohary/Mandelbrot-Generator",
                 "",
                 [
@@ -334,7 +369,8 @@ class CLIAppsSection extends HTMLElement {
                 "assets/tasks.svg",
                 "#9f9f9f",
                 "Schedule commands to run at a certain time daily.",
-                "",
+                tags("Bash") + 
+                creationDate("Created in 2024"),
                 "https://github.com/hamza-algohary/tasks.sh",
                 ""
             ) 
@@ -348,7 +384,8 @@ class LibrariesSection extends HTMLElement {
                 "gtkx + gtky",
                 "",
                 "",
-                "Kotlin extensions for Gtk4 and libadwaita, using bindings of Java-GI",
+                "Kotlin extensions for Gtk4 and libadwaita, using bindings of Java-GI" + 
+                creationDate("Created in 2025"),
                 "",
                 "https://github.com/hamza-algohary/tvland",
                 ""
@@ -357,7 +394,8 @@ class LibrariesSection extends HTMLElement {
                 "libwayland for Kotlin",
                 "",
                 "",
-                "Wayland Client library written from scratch in Kotlin JVM, it includes a protocols scanner and code generator.",
+                "Wayland Client library written from scratch in Kotlin JVM, it includes a protocols scanner and code generator." + 
+                creationDate("Created in 2026"),
                 "",
                 "https://github.com/hamza-algohary/tvland",
                 ""

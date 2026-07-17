@@ -172,6 +172,20 @@ body {
 
 }
 
+.tag {
+    font-size: small;
+    background-color: var(--icon-color,#251f32);
+    border-radius: 5px;
+    color: contrast-color(var(--icon-color));
+    margin: 4px;    
+    padding: 4px;
+}
+
+.creation-date {
+    font-size: small;
+    color: var(--card-fg-color-secondary);
+}
+
 /************ Scrollbars CSS ************/
 .screenshots {
     overflow-x: auto;
