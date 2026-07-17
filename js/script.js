@@ -164,6 +164,40 @@ function video(src , type) {
 `
 }
 
+class VideoSource {
+    constructor(src,type) {
+        this.src = src
+        this.type = type
+    }
+
+    toSourceTag() {
+        return `<source src="${this.src}" type="video/${this.type}">`
+    }
+
+    toVideoTag() {
+        return `
+            <video controls autoplay muted loop>
+                ${this.toSourceTag()}
+                Your browser does not support the video tag.
+            </video>
+        `
+    }
+}
+
+class Video {
+    constructor(sources = []) {
+        this.sources = sources
+    }
+    toVideoTag() {
+        return `
+            <video controls autoplay muted loop>
+                ${ this.sources.map( (source) => source.toSourceTag() ).join("\n") }
+                Your browser does not support the video tag.
+            </video>
+        `
+    }
+}
+
 
 function ulist(...items) {
     return "<ul>" + items.map(
@@ -212,7 +246,12 @@ class GUIApps extends HTMLElement {
                     "assets/coulomb-screenshots/zener-dark.png",
                 ],
                 [
-                    video("assets/videos/coulomb-edited.webm","webm")
+                    new Video(
+                        [
+                            new VideoSource("assets/videos/coulomb-edited.webm","webm"),
+                            new VideoSource("assets/videos/coulomb-edited.mp4","mp4")
+                        ]
+                    ).toVideoTag()
                 ]
             ) +
             guiAppSection(
@@ -302,7 +341,12 @@ class GUIApps extends HTMLElement {
                     "assets/explosion-screenshots/12.png"
                 ],
                 [
-                    video("assets/videos/exploding-fire-particle-simulation.webm" , "webm")
+                    new Video(
+                        [
+                            new VideoSource("assets/videos/exploding-fire-particle-simulation.webm" , "webm"),
+                            new VideoSource("assets/videos/exploding-fire-particle-simulation.mp4" , "mp4")
+                        ]
+                    ).toVideoTag()
                 ]
             ) 
     }

@@ -191,9 +191,7 @@ body {
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, .35) transparent;
-
     scroll-snap-type: x mandatory;
-
 }
 
 .screenshots::-webkit-scrollbar {
